@@ -1,0 +1,34 @@
+# --- secrets: never commit ---------------------------------------------
+.env
+.env.*
+!.env.example
+
+# --- runtime data: never commit -----------------------------------------
+data/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+tmp/
+logs/
+backups/
+*.log
+
+# --- python --------------------------------------------------------------
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- editors / OS ---------------------------------------------------------
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

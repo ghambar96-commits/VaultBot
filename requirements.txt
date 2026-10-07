@@ -1,0 +1,3 @@
+# Runtime — intentionally tiny.
+aiogram>=3.13,<4.0
+python-dotenv>=1.0.0

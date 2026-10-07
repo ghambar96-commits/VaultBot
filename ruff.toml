@@ -1,0 +1,15 @@
+# Intentionally light: catch real errors, not style wars.
+line-length = 100
+target-version = "py312"
+
+[lint]
+select = [
+    "E9",   # syntax errors
+    "F",    # pyflakes: unused imports/vars, undefined names
+    "W605", # invalid escape sequences
+]
+ignore = []
+
+[lint.per-file-ignores]
+# conftest exports fixtures/helpers used via pytest magic
+"tests/conftest.py" = ["F401"]

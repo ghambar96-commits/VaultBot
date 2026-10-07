@@ -1,0 +1,16 @@
+services:
+  vaultbot:
+    build: .
+    container_name: vaultbot
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      # The ONLY persistent data: SQLite DB + backups (a few MB).
+      - ./data:/app/data
+    # Tiny footprint by design: no redis, no postgres, no elasticsearch.
+    mem_limit: 256m
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"

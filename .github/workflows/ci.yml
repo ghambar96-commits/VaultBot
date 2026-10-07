@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt ruff
+
+      - name: Lint (syntax + pyflakes rules)
+        run: ruff check app tests
+
+      - name: Compile check
+        run: python -m compileall -q app
+
+      - name: Import sanity check (no token needed)
+        env:
+          VAULTBOT_ALLOW_NO_TOKEN: "1"
+        run: python -c "import app.main, app.bot, app.config"
+
+      - name: Run tests (offline, no token needed)
+        run: pytest -q
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image (sanity)
+        run: docker build -t vaultbot-ci .

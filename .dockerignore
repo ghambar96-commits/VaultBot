@@ -1,0 +1,24 @@
+# Never ship secrets or runtime data into the image
+.env*
+data/
+tmp/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite3
+logs/
+backups/
+
+# Dev / CI artifacts
+.git
+.github
+.gitignore
+.pytest_cache
+.venv
+venv
+__pycache__
+**/__pycache__
+tests/
+*.md
+Dockerfile
+docker-compose.yml
